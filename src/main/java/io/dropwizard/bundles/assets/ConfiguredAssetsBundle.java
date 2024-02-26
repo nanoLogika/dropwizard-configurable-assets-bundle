@@ -4,14 +4,16 @@ import com.google.common.base.Charsets;
 import com.google.common.cache.CacheBuilderSpec;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
-import io.dropwizard.ConfiguredBundle;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
+import io.dropwizard.core.ConfiguredBundle;
+import io.dropwizard.core.setup.Bootstrap;
+import io.dropwizard.core.setup.Environment;
 
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import jakarta.servlet.ServletRegistration;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -325,6 +327,7 @@ public class ConfiguredAssetsBundle implements ConfiguredBundle<AssetsBundleConf
     }
     AssetServlet servlet = new AssetServlet(servletResourcePathToUriMappings, indexFile,
         Charsets.UTF_8, spec, overrides, mimeTypes);
+    ServletRegistration.Dynamic registration = env.servlets().addServlet(assetsName, servlet);
 
     for (Map.Entry<String, String> mapping : servletResourcePathToUriMappings) {
       String mappingPath = mapping.getValue();
@@ -335,7 +338,7 @@ public class ConfiguredAssetsBundle implements ConfiguredBundle<AssetsBundleConf
       servlet.setCacheControlHeader(config.getCacheControlHeader());
       LOGGER.info("Registering ConfiguredAssetBundle with name: {} for path {}", assetsName,
           mappingPath);
-      env.servlets().addServlet(assetsName, servlet).addMapping(mappingPath);
+      registration.addMapping(mappingPath);
     }
   }
 }

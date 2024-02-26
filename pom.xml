@@ -2,18 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>io.dropwizard-bundles</groupId>
-    <artifactId>parent-pom</artifactId>
-    <version>1.3.5</version>
-  </parent>
 
+  <groupId>io.dropwizard-bundles</groupId>
   <artifactId>dropwizard-configurable-assets-bundle</artifactId>
-  <version>1.3.5-1-SNAPSHOT</version>  <!-- Make sure to keep this in sync with the parent pom version above. -->
+  <version>2.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Dropwizard Configurable Asset Bundle</name>
-  <description>An implementation of an AssetBundle for use in Dropwizard that allows user configuration.</description>
+  <description>An implementation of an AssetBundle for use in Dropwizard 4.x that allows user configuration.</description>
 
   <licenses>
     <license>
@@ -24,9 +20,9 @@
   </licenses>
 
   <scm>
-    <url>https://github.com/dropwizard-bundles/dropwizard-configurable-assets-bundle</url>
-    <connection>scm:git:https://github.com/dropwizard-bundles/dropwizard-configurable-assets-bundle</connection>
-    <developerConnection>scm:git:https://github.com/dropwizard-bundles/dropwizard-configurable-assets-bundle</developerConnection>
+    <url>https://github.com/nanoLogika/dropwizard-configurable-assets-bundle</url>
+    <connection>scm:git:https://github.com/nanoLogika/dropwizard-configurable-assets-bundle</connection>
+    <developerConnection>scm:git:https://github.com/nanoLogika/dropwizard-configurable-assets-bundle</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
@@ -41,6 +37,13 @@
       <name>Nate Bauernfeind</name>
       <url>http://github.com/nbauernfeind/</url>
     </developer>
+    <developer>
+      <id>nL-cfr</id>
+      <name>Christian Fritzsch</name>
+      <url>https://github.com/nL-cfr/</url>
+      <organization>nanoLogika</organization>
+      <organizationUrl>https://github.com/nanoLogika</organizationUrl>
+    </developer>
   </developers>
 
   <build>
@@ -54,46 +57,43 @@
     </testResources>
   </build>
 
+  <properties>
+    <java.minimum.version>11</java.minimum.version>
+    <dropwizard.version>4.0.6</dropwizard.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>io.dropwizard</groupId>
       <artifactId>dropwizard-core</artifactId>
+      <version>${dropwizard.version}</version>
     </dependency>
     <dependency>
       <groupId>io.dropwizard</groupId>
       <artifactId>dropwizard-servlets</artifactId>
+      <version>${dropwizard.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>3.0.2</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>1.7.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-http</artifactId>
-      <classifier>tests</classifier>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-servlet</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-servlet</artifactId>
-      <classifier>tests</classifier>
+      <version>3.25.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+      <version>5.10.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
