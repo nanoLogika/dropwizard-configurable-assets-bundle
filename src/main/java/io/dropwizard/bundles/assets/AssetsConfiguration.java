@@ -1,12 +1,14 @@
 package io.dropwizard.bundles.assets;
 
+import java.util.Collections;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import java.util.Collections;
-import java.util.Map;
+
 import jakarta.validation.constraints.NotNull;
 
 @JsonDeserialize(builder = AssetsConfiguration.Builder.class)
@@ -66,7 +68,8 @@ public class AssetsConfiguration {
     return resourcePathToUriMappings;
   }
 
-  private String ensureEndsWithSlash(String value) {
+
+  private static String ensureEndsWithSlash(String value) {
     return value != null ? (value.endsWith(SLASH) ? value : value + SLASH) : SLASH;
   }
 

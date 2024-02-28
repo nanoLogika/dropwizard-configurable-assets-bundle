@@ -1,30 +1,33 @@
 package io.dropwizard.bundles.assets;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.google.common.cache.CacheBuilderSpec;
-import com.google.common.collect.ImmutableMap;
-import io.dropwizard.jackson.Jackson;
-import io.dropwizard.jetty.setup.ServletEnvironment;
-import io.dropwizard.core.setup.Environment;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import jakarta.servlet.ServletRegistration;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.google.common.cache.CacheBuilderSpec;
+import com.google.common.collect.ImmutableMap;
+
+import io.dropwizard.core.setup.Environment;
+import io.dropwizard.jackson.Jackson;
+import io.dropwizard.jetty.setup.ServletEnvironment;
+import jakarta.servlet.ServletRegistration;
 
 public class AssetsBundleTest {
   private final ServletEnvironment servletEnvironment = mock(ServletEnvironment.class);
@@ -46,6 +49,8 @@ public class AssetsBundleTest {
     when(environment.servlets()).thenReturn(servletEnvironment);
   }
 
+
+  @SuppressWarnings("static-method")
   @Test
   public void deserialzeAssetsConfiguration() throws IOException {
     ObjectMapper mapper = Jackson.newObjectMapper(new YAMLFactory());
