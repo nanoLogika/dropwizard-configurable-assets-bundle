@@ -1,4 +1,4 @@
-package io.dropwizard.bundles.assets;
+package de.nanologika.dropwizard.bundles.assets;
 
 import com.google.common.base.Charsets;
 import com.google.common.cache.CacheBuilderSpec;

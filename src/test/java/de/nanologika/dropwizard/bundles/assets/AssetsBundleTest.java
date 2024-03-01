@@ -1,4 +1,4 @@
-package io.dropwizard.bundles.assets;
+package de.nanologika.dropwizard.bundles.assets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
