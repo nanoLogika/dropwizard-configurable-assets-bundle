@@ -135,6 +135,11 @@
             <goals>
               <goal>sign</goal>
             </goals>
+            <configuration>
+              <!-- Specify variable in settings, reference: https://maven.apache.org/plugins/maven-gpg-plugin/usage.html -->
+              <keyname>${gpg.keyname}</keyname>
+              <passphraseServerId>${gpg.keyname}</passphraseServerId>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -177,8 +182,8 @@
         <version>0.4.0</version>
         <extensions>true</extensions>
         <configuration>
+          <autoPublish>false</autoPublish>
           <publishingServerId>central</publishingServerId>
-          <tokenAuth>true</tokenAuth>
           <checksums>all</checksums>
         </configuration>
       </plugin>
