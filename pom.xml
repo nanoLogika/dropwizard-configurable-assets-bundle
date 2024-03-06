@@ -30,12 +30,12 @@
     <developer>
       <id>bbeck</id>
       <name>Brandon Beck</name>
-      <url>http://github.com/bbeck/</url>
+      <url>https://github.com/bbeck/</url>
     </developer>
     <developer>
       <id>nbauernfeind</id>
       <name>Nate Bauernfeind</name>
-      <url>http://github.com/nbauernfeind/</url>
+      <url>https://github.com/nbauernfeind/</url>
     </developer>
     <developer>
       <id>nL-cfr</id>
@@ -123,19 +123,6 @@
         </configuration>
       </plugin>
 
-      <!-- Release to OSS Sonatype / Maven Central. -->
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.13</version>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>oss.sonatype.org</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-        </configuration>
-      </plugin>
-
       <!-- Prepare release to OSS Sonatype - gpg -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -183,11 +170,17 @@
         </executions>
       </plugin>
 
-      <!-- Prepare release to OSS Sonatype - checksums -->
+      <!-- Release to OSS Sonatype + generate checksums -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>3.1.1</version>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.4.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+          <tokenAuth>true</tokenAuth>
+          <checksums>all</checksums>
+        </configuration>
       </plugin>
     </plugins>
   </build>
