@@ -1,4 +1,13 @@
-package io.dropwizard.bundles.assets;
+package de.nanologika.dropwizard.bundles.assets;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.jetty.http.MimeTypes;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
@@ -15,20 +24,13 @@ import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import com.google.common.net.HttpHeaders;
 import com.google.common.net.MediaType;
+
 import io.dropwizard.servlets.assets.ByteRange;
 import io.dropwizard.servlets.assets.ResourceURL;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.eclipse.jetty.http.MimeTypes;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Servlet responsible for serving assets to the caller.  This is basically completely stolen from
@@ -128,7 +130,7 @@ public class AssetServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-          throws ServletException, IOException {
+          throws IOException {
     try {
       final StringBuilder builder = new StringBuilder(req.getServletPath());
       if (req.getPathInfo() != null) {
@@ -230,7 +232,8 @@ public class AssetServlet extends HttpServlet {
     }
   }
 
-  private boolean isCachedClientSide(HttpServletRequest req, Asset cachedAsset) {
+
+  private static boolean isCachedClientSide(HttpServletRequest req, Asset cachedAsset) {
     return cachedAsset.getETag().equals(req.getHeader(HttpHeaders.IF_NONE_MATCH))
             || (req.getDateHeader(HttpHeaders.IF_MODIFIED_SINCE)
             >= cachedAsset.getLastModifiedTime());
@@ -243,7 +246,8 @@ public class AssetServlet extends HttpServlet {
    * @param resourceLength Length of the resource in bytes
    * @return List of parsed ranges
    */
-  private ImmutableList<ByteRange> parseRangeHeader(final String rangeHeader,
+  private static ImmutableList<ByteRange> parseRangeHeader(
+          final String rangeHeader,
                                                     final int resourceLength) {
     final ImmutableList.Builder<ByteRange> builder = ImmutableList.builder();
     if (rangeHeader.contains("=")) {
@@ -445,14 +449,20 @@ public class AssetServlet extends HttpServlet {
       this.lastModifiedTime = lastModifiedTime;
     }
 
+
+    @Override
     public byte[] getResource() {
       return resource;
     }
 
+
+    @Override
     public String getETag() {
       return etag;
     }
 
+
+    @Override
     public long getLastModifiedTime() {
       return lastModifiedTime;
     }

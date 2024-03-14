@@ -1,22 +1,26 @@
 # Configurable Assets Bundle for Dropwizard
 
-This GitHub repository contains a drop-in replacement for Yammer's `AssetsBundle` class that allows
-for a better developer experience.  Developers can use the `ConfiguredAssetsBundle` class anywhere
-they would use a `AssetsBundle` in their Dropwizard applications and take advantage of the ability
-to specify redirects for URIs to that loads them from disk instead of the classpath.  This allows
-developers to edit browser-interpreted files and reload them without needing to recompile source.
+This GitHub repository is based on [configurable assets bundle](https://github.com/dropwizard-bundles/dropwizard-configurable-assets-bundle) by [Brandon Beck](https://github.com/bbeck), [Nate Bauernfeind](https://github.com/nbauernfeind/) and all other contributors that made the original project possible. This is merely an update to provide the same functionality to Dropwizard 4.x with Java 11+.
 
-[![Build Status](https://travis-ci.org/dropwizard-bundles/dropwizard-configurable-assets-bundle.png)](https://travis-ci.org/dropwizard-bundles/dropwizard-configurable-assets-bundle)
+As the functionality remains the same, you may refer to the readme of the original project, though the content will be repeated here for ease of use.
 
 ## Maven Setup
 
+Once the release is ready the artifacts can be found under:
+
 ```xml
 <dependency>
-  <groupId>io.dropwizard-bundles</groupId>
+  <groupId>de.nanologika.dropwizard</groupId>
   <artifactId>dropwizard-configurable-assets-bundle</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.0</version>
 </dependency>
 ```
+It is NOT available yet.
+
+## Usage
+
+Developers can use the `ConfiguredAssetsBundle` class anywhere they would use a `AssetsBundle` in their Dropwizard applications and take advantage of the ability
+to specify redirects for URIs to that loads them from disk instead of the classpath. This allows developers to edit browser-interpreted files and reload them without needing to recompile source.
 
 ## Getting Started
 

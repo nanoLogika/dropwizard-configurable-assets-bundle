@@ -1,4 +1,4 @@
-package io.dropwizard.bundles.assets;
+package de.nanologika.dropwizard.bundles.assets;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,6 +13,9 @@ public class UrlUtil {
    * Switch zip protocol (used by Weblogic) to jar protocol (supported by DropWizard).
    *
    * @param resourceUrl the URL to switch protocol eventually
+   *
+   * @throws MalformedURLException Thrown when the url fails to comply with the "zip" protocol
+   *
    * @return the URL with eventually switched protocol
    */
   public static URL switchFromZipToJarProtocolIfNeeded(URL resourceUrl)

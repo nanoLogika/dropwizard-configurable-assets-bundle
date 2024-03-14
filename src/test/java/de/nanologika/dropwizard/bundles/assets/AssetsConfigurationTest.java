@@ -1,4 +1,4 @@
-package io.dropwizard.bundles.assets;
+package de.nanologika.dropwizard.bundles.assets;
 
 import java.util.HashMap;
 import java.util.Map;

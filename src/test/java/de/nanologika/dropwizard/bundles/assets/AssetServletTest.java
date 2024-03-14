@@ -1,4 +1,4 @@
-package io.dropwizard.bundles.assets;
+package de.nanologika.dropwizard.bundles.assets;
 
 import com.google.common.base.Charsets;
 import com.google.common.cache.CacheBuilderSpec;
@@ -237,7 +237,7 @@ public class AssetServletTest {
     assertThat(firstEtag)
             .isEqualTo("\"174a6dd7325e64c609eab14ab1d30b86\"");
     assertThat(secondEtag.equals("\"26ae56a90cd78c6720c544707d22110b\"")
-        || secondEtag.equals("\"7a13c3f9f2be8379b5a2fb77a85e1d10\""));
+            || secondEtag.equals("\"7a13c3f9f2be8379b5a2fb77a85e1d10\""));
   }
 
   @Test
@@ -455,7 +455,7 @@ public class AssetServletTest {
   @Test
   public void throwsA404IfNoIndexFileIsDefined() throws Exception {
     // Root directory listing:
-    response = makeRequest(NOINDEX_SERVLET + '/');
+    response = makeRequest(NOINDEX_SERVLET);
     assertThat(response.getStatus())
             .isEqualTo(404);
 
@@ -479,7 +479,7 @@ public class AssetServletTest {
 
   @Test
   public void doesNotAllowOverridingPaths() throws Exception {
-    response = makeRequest(DUMMY_SERVLET + "/etc/passwd");
+    response = makeRequest(DUMMY_SERVLET + "etc/passwd");
     assertThat(response.getStatus())
             .isEqualTo(404);
   }
@@ -511,13 +511,13 @@ public class AssetServletTest {
 
   @Test
   public void servesFromMultipleMappings() throws Exception {
-    response = makeRequest(MM_ASSET_SERVLET + "/example.txt");
+    response = makeRequest(MM_ASSET_SERVLET + "example.txt");
     assertThat(response.getStatus())
             .isEqualTo(200);
     assertThat(response.getContent())
             .isEqualTo("HELLO THERE");
 
-    response = makeRequest(MM_JSON_SERVLET + "/example.txt");
+    response = makeRequest(MM_JSON_SERVLET + "example.txt");
     assertThat(response.getStatus())
             .isEqualTo(200);
     assertThat(response.getContent())
@@ -526,11 +526,11 @@ public class AssetServletTest {
 
   @Test
   public void noPollutionAcrossMultipleMappings() throws Exception {
-    response = makeRequest(MM_ASSET_SERVLET + "/json%20only.txt");
+    response = makeRequest(MM_ASSET_SERVLET + "json%20only.txt");
     assertThat(response.getStatus())
             .isEqualTo(404);
 
-    response = makeRequest(MM_JSON_SERVLET + "/json%20only.txt");
+    response = makeRequest(MM_JSON_SERVLET + "json%20only.txt");
     assertThat(response.getStatus())
             .isEqualTo(200);
   }
