@@ -10,6 +10,7 @@
 
   <name>Dropwizard Configurable Asset Bundle</name>
   <description>An implementation of an AssetBundle for use in Dropwizard 4.x that allows user configuration.</description>
+  <url>https://github.com/nanoLogika/dropwizard-configurable-assets-bundle</url>
 
   <licenses>
     <license>
@@ -185,6 +186,7 @@
           <autoPublish>false</autoPublish>
           <publishingServerId>central</publishingServerId>
           <checksums>all</checksums>
+          <tokenAuth>true</tokenAuth>
         </configuration>
       </plugin>
     </plugins>
