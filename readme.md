@@ -6,8 +6,6 @@ As the functionality remains the same, you may refer to the readme of the origin
 
 ## Maven Setup
 
-Once the release is ready the artifacts can be found under:
-
 ```xml
 <dependency>
   <groupId>de.nanologika.dropwizard</groupId>
@@ -15,7 +13,6 @@ Once the release is ready the artifacts can be found under:
   <version>1.0.0</version>
 </dependency>
 ```
-It is NOT available yet.
 
 ## Usage
 
