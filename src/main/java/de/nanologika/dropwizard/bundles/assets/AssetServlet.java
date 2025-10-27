@@ -46,7 +46,7 @@ public class AssetServlet extends HttpServlet {
 
   private final transient CacheBuilderSpec cacheSpec;
   private final transient LoadingCache<String, Asset> cache;
-  private final transient MimeTypes mimeTypes;
+  private final transient MimeTypes.Mutable mutableMimeTypes;
 
   private Charset defaultCharset;
 
@@ -89,8 +89,8 @@ public class AssetServlet extends HttpServlet {
     this.cache = cacheBuilder.build(loader);
 
     this.cacheSpec = spec;
-    this.mimeTypes = new MimeTypes();
-    this.setMimeTypes(mimeTypes);
+    this.mutableMimeTypes = new MimeTypes.Mutable();
+    this.setMutableMimeTypes(mimeTypes);
   }
 
   public void setCacheControlHeader(String cacheControlHeader) {
@@ -104,16 +104,16 @@ public class AssetServlet extends HttpServlet {
   /**
    * Adds mimeType overrides.
    *
-   * @param mimeTypes the mimeType override mapping
+   * @param mutableMimeTypes the mimeType override mapping
    */
-  public void setMimeTypes(Iterable<Map.Entry<String, String>> mimeTypes) {
-    for (Map.Entry<String, String> mime : mimeTypes) {
-      this.mimeTypes.addMimeMapping(mime.getKey(), mime.getValue());
+  public void setMutableMimeTypes(Iterable<Map.Entry<String, String>> mutableMimeTypes) {
+    for (Map.Entry<String, String> mime : mutableMimeTypes) {
+      this.mutableMimeTypes.addMimeMapping(mime.getKey(), mime.getValue());
     }
   }
 
-  public MimeTypes getMimeTypes() {
-    return mimeTypes;
+  public MimeTypes getMutableMimeTypes() {
+    return mutableMimeTypes;
   }
 
   public void setDefaultCharset(Charset defaultCharset) {
@@ -188,7 +188,7 @@ public class AssetServlet extends HttpServlet {
       }
 
 
-      String mimeTypeOfExtension = mimeTypes.getMimeByExtension(req.getRequestURI());
+      String mimeTypeOfExtension = mutableMimeTypes.getMimeByExtension(req.getRequestURI());
       if (mimeTypeOfExtension == null) {
         mimeTypeOfExtension = req.getServletContext().getMimeType(req.getRequestURI());
       }
@@ -334,7 +334,7 @@ public class AssetServlet extends HttpServlet {
       return null;
     }
 
-    private Asset loadOverride(String key) throws Exception {
+    private Asset loadOverride(String key) {
       // TODO: Support prefix matches only for directories
       for (Map.Entry<String, String> override : overrides) {
         File file = null;
@@ -363,7 +363,7 @@ public class AssetServlet extends HttpServlet {
     }
   }
 
-  private static interface Asset {
+  private interface Asset {
     byte[] getResource();
 
     String getETag();
