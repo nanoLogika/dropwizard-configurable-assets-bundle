@@ -1,0 +1,11 @@
+Configurable Assets Bundle for Dropwizard
+Copyright nanoLogika GmbH 2024 - 2025
+
+A fork from https://github.com/dropwizard-bundles/dropwizard-configurable-assets-bundle
+Copyright by Brandon Beck and Nate Bauernfeind 2015 - 2018
+
+The following files have been changed since the fork:
+- AssetServlet
+- AssetServletTest
+- ConfiguredAssetsBundle
+- UrlUtil
