@@ -1,18 +1,16 @@
 package de.nanologika.dropwizard.bundles.assets;
 
-import com.google.common.base.Charsets;
 import com.google.common.cache.CacheBuilderSpec;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.net.HttpHeaders;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import org.eclipse.jetty.http.HttpHeader;
-import org.eclipse.jetty.http.HttpTester;
-import org.eclipse.jetty.http.HttpVersion;
-import org.eclipse.jetty.http.MimeTypes;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.servlet.ServletTester;
+
+import org.eclipse.jetty.http.*;
+import org.eclipse.jetty.ee10.servlet.ServletHolder;
+import org.eclipse.jetty.ee10.servlet.ServletTester;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +18,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AssetServletTest {
-  private static final Charset DEFAULT_CHARSET = Charsets.UTF_8;
+  private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
   private static final CacheBuilderSpec DEFAULT_CACHE_SPEC =
           CacheBuilderSpec.parse("maximumSize=100");
   private static final Iterable<Map.Entry<String, String>> EMPTY_OVERRIDES =
@@ -95,7 +93,7 @@ public class AssetServletTest {
       Map<String, String> mimeMappings = new HashMap<>();
       mimeMappings.put("bar", "application/bar");
       mimeMappings.put("txt", "application/foo");
-      setMimeTypes(mimeMappings.entrySet());
+      setMutableMimeTypes(mimeMappings.entrySet());
     }
   }
 
@@ -390,15 +388,15 @@ public class AssetServletTest {
     response = makeRequest();
     final long lastModifiedTime = response.getDateField(HttpHeaders.LAST_MODIFIED);
 
-    request.putDateField(HttpHeaders.IF_MODIFIED_SINCE, lastModifiedTime);
+    request.put(HttpHeaders.IF_MODIFIED_SINCE,  DateGenerator.formatDate(lastModifiedTime));
     response = makeRequest();
     final int statusWithMatchingLastModifiedTime = response.getStatus();
 
-    request.putDateField(HttpHeaders.IF_MODIFIED_SINCE, lastModifiedTime - 100);
+    request.put(HttpHeaders.IF_MODIFIED_SINCE, DateGenerator.formatDate(lastModifiedTime - 100));
     response = makeRequest();
     final int statusWithStaleLastModifiedTime = response.getStatus();
 
-    request.putDateField(HttpHeaders.IF_MODIFIED_SINCE, lastModifiedTime + 100);
+    request.put(HttpHeaders.IF_MODIFIED_SINCE, DateGenerator.formatDate(lastModifiedTime + 100));
     response = makeRequest();
     final int statusWithRecentLastModifiedTime = response.getStatus();
 

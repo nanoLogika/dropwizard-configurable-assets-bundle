@@ -1,6 +1,5 @@
 package de.nanologika.dropwizard.bundles.assets;
 
-import com.google.common.base.Charsets;
 import com.google.common.cache.CacheBuilderSpec;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
@@ -8,6 +7,7 @@ import io.dropwizard.core.ConfiguredBundle;
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -307,7 +307,7 @@ public class ConfiguredAssetsBundle implements ConfiguredBundle<AssetsBundleConf
   }
 
   @Override
-  public void run(AssetsBundleConfiguration bundleConfig, Environment env) throws Exception {
+  public void run(AssetsBundleConfiguration bundleConfig, Environment env) {
     AssetsConfiguration config = bundleConfig.getAssetsConfiguration();
 
     // Let the cache spec from the configuration override the one specified in the code
@@ -326,7 +326,7 @@ public class ConfiguredAssetsBundle implements ConfiguredBundle<AssetsBundleConf
       servletResourcePathToUriMappings = resourcePathToUriMappings;
     }
     AssetServlet servlet = new AssetServlet(servletResourcePathToUriMappings, indexFile,
-        Charsets.UTF_8, spec, overrides, mimeTypes);
+        StandardCharsets.UTF_8, spec, overrides, mimeTypes);
     ServletRegistration.Dynamic registration = env.servlets().addServlet(assetsName, servlet);
 
     for (Map.Entry<String, String> mapping : servletResourcePathToUriMappings) {
