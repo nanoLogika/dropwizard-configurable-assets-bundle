@@ -1,6 +1,6 @@
 # Configurable Assets Bundle for Dropwizard
 
-This GitHub repository is based on [configurable assets bundle](https://github.com/dropwizard-bundles/dropwizard-configurable-assets-bundle) by [Brandon Beck](https://github.com/bbeck), [Nate Bauernfeind](https://github.com/nbauernfeind/) and all other contributors that made the original project possible. This is merely an update to provide the same functionality to Dropwizard 4.x with Java 11+.
+This GitHub repository is based on [configurable assets bundle](https://github.com/dropwizard-bundles/dropwizard-configurable-assets-bundle) by [Brandon Beck](https://github.com/bbeck), [Nate Bauernfeind](https://github.com/nbauernfeind/) and all other contributors that made the original project possible. This is merely an update to provide the same functionality to Dropwizard 5.x with Java 17+.
 
 As the functionality remains the same, you may refer to the readme of the original project, though the content will be repeated here for ease of use.
 
