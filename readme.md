@@ -10,7 +10,7 @@ As the functionality remains the same, you may refer to the readme of the origin
 <dependency>
   <groupId>de.nanologika.dropwizard</groupId>
   <artifactId>dropwizard-configurable-assets-bundle</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
